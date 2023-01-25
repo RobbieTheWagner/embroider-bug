@@ -29,11 +29,11 @@ module.exports = function (defaults) {
     /**
      * Embroider's flags
      */
-    staticAddonTestSupportTrees: true,
-    staticAddonTrees: true,
-    staticHelpers: true,
-    staticModifiers: true,
-    staticComponents: true,
+    staticAddonTestSupportTrees: false,
+    staticAddonTrees: false,
+    staticHelpers: false,
+    staticModifiers: false,
+    staticComponents: false,
     splitAtRoutes: [],
 
     skipBabel: [

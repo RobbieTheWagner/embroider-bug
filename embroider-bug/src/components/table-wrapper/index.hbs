@@ -5,34 +5,11 @@
     @fillMode={{@fillMode}}
     @columns={{@columns}}
     @sorts={{this.sorts}}
-    @onUpdateSorts={{fn (mut this.sorts)}} as |h|
+    as |h|
   >
     <h.row class='text-gray-700 text-xs dark:text-gray-200' as |r|>
       <r.cell class='py-2 text-left' as |column columnMeta|>
         <div class='flex items-center'>
-          {{#if column.headerComponent}}
-            {{#component (ensure-safe-component column.headerComponent)}}
-              {{column.heading}}
-            {{/component}}
-          {{else}}
-            {{column.heading}}
-          {{/if}}
-
-          <div class='h-4 ml-1 w-4'>
-            {{#if columnMeta.isSorted}}
-              {{#if columnMeta.isSortedAsc}}
-                {{svg-jar
-                  'caret-up'
-                  class='fill-primary child:stroke-primary h-4 w-4'
-                }}
-              {{else}}
-                {{svg-jar
-                  'caret-down'
-                  class='fill-primary child:stroke-primary h-4 w-4'
-                }}
-              {{/if}}
-            {{/if}}
-          </div>
         </div>
       </r.cell>
     </h.row>
@@ -44,14 +21,13 @@
     >
       <r.cell class='h-10' as |cell column row cellMeta|>
         {{#if column.cellComponent}}
-          {{#component
-            (ensure-safe-component column.cellComponent)
-            cellMeta=cellMeta
-            column=column
-            row=row
-          }}
-            {{cell}}
-          {{/component}}
+          {{log column.cellComponent}}
+          {{#let (component column.cellComponent) as |Wrapper|}}
+            {{log Wrapper}}
+            <Wrapper>
+              {{cell}}
+            </Wrapper>
+          {{/let}}
         {{else}}
           {{cell}}
         {{/if}}
