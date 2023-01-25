@@ -1,5 +1,4 @@
-import babel from '@rollup/plugin-babel';
-import copy from 'rollup-plugin-copy';
+import ts from 'rollup-plugin-ts';
 import { Addon } from '@embroider/addon-dev/rollup';
 
 const addon = new Addon({
@@ -15,17 +14,12 @@ export default {
   plugins: [
     // These are the modules that users should be able to import from your
     // addon. Anything not listed here may get optimized away.
-    addon.publicEntrypoints(['components/**/*.js', 'index.js']),
+    addon.publicEntrypoints(['components/**/*.ts']),
 
     // These are the modules that should get reexported into the traditional
     // "app" tree. Things in here should also be in publicEntrypoints above, but
     // not everything in publicEntrypoints necessarily needs to go here.
     addon.appReexports(['components/**/*.js']),
-
-    // Follow the V2 Addon rules about dependencies. Your code can import from
-    // `dependencies` and `peerDependencies` as well as standard Ember-provided
-    // package names.
-    addon.dependencies(),
 
     // This babel config should *not* apply presets or compile away ES modules.
     // It exists only to provide development niceties for you, like automatic
@@ -33,9 +27,37 @@ export default {
     //
     // By default, this will load the actual babel config from the file
     // babel.config.json.
-    babel({
-      babelHelpers: 'bundled',
+    ts({
+      // can be changed to swc or other transpilers later
+      // but we need the ember plugins converted first
+      // (template compilation and co-location)
+      transpiler: 'babel',
+      babelConfig: './babel.config.json',
+      browserslist: [
+        'last 2 firefox versions',
+        'last 2 chrome versions',
+        'last 2 safari versions',
+      ],
+      tsconfig: {
+        fileName: 'tsconfig.json',
+        hook: (config) => ({
+          ...config,
+          declaration: true,
+          // TODO: these aren't being generated? why?
+          declarationMap: true,
+          // See: https://devblogs.microsoft.com/typescript/announcing-typescript-4-5/#beta-delta
+          // Allows us to use `exports` to define types per export
+          // However, it was declared as not ready
+          // as a result, we need extra / fallback references in the package.json
+          declarationDir: './dist',
+        }),
+      },
     }),
+
+    // Follow the V2 Addon rules about dependencies. Your code can import from
+    // `dependencies` and `peerDependencies` as well as standard Ember-provided
+    // package names.
+    addon.dependencies(),
 
     // Ensure that standalone .hbs files are properly integrated as Javascript.
     addon.hbs(),
@@ -46,13 +68,5 @@ export default {
 
     // Remove leftover build artifacts when starting a new build.
     addon.clean(),
-
-    // Copy Readme and License into published package
-    copy({
-      targets: [
-        { src: '../README.md', dest: '.' },
-        { src: '../LICENSE.md', dest: '.' },
-      ],
-    }),
   ],
 };
