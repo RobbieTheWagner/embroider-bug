@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import TableCheckboxCell from 'test-app/components/table-cells/checkbox-cell';
-
 export default class ApplicationController extends Controller {
+  TableCheckboxCell = TableCheckboxCell;
   tableColumns = [
     {
       heading: 'Checkbox',
