@@ -3,13 +3,9 @@
 const packageJson = require('./package');
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const isProduction = EmberApp.env() === 'production';
-const { WatchedDir } = require('broccoli-source');
 
 module.exports = function (defaults) {
-  let appTree = new WatchedDir('app');
-
   let app = new EmberApp(defaults, {
-    trees: { app: appTree },
     autoImport: {
       watchDependencies: Object.keys(packageJson.dependencies),
     },
