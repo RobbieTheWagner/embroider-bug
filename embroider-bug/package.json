@@ -28,6 +28,7 @@
     "@embroider/addon-shim": "^1.8.4",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
+    "ember-svg-jar": "^2.4.2",
     "ember-table": "^5.0.1"
   },
   "devDependencies": {
@@ -71,8 +72,14 @@
     }
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./*": "./dist/*.js",
+    "./*": "./dist/*",
     "./addon-main.js": "./addon-main.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
   }
 }
