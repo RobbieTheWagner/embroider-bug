@@ -29,7 +29,7 @@
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
     "ember-svg-jar": "^2.4.2",
-    "ember-table": "^5.0.1"
+    "ember-table": "rwwagner90/ember-table#cadd75bd0198be4bbcef0d6549d50b1278ed66c2"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",
