@@ -15,7 +15,7 @@ export default class ConditionalError extends Component {
   <template>
     <fieldset>
       <legend>{{@label}}</legend>
-      <button {{on "click" this.toggle}}>toggle</button>
+      <button {{on "click" this.toggle}}>throw error</button>
 
       {{#if this.visible}}
         {{ (error) }}
