@@ -1,0 +1,3 @@
+<template>
+  GJS
+</template>

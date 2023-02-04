@@ -1,13 +1,13 @@
 'use strict';
 
-const packageJson = require('./package');
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const isProduction = EmberApp.env() === 'production';
 
 module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
-    autoImport: {
-      watchDependencies: Object.keys(packageJson.dependencies),
+    // ec-typescript shouldn't be used anymore 🙃
+    'ember-cli-babel': {
+      enableTypeScriptTransform: true,
     },
   });
 
