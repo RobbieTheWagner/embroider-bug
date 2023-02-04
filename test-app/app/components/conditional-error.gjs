@@ -6,6 +6,11 @@ let error = () => {
   throw new Error('My custom ConditionalError');
 }
 
+const expected = (name) => `Demo
+  ${name}
+    ConditionalError
+`
+
 export default class ConditionalError extends Component {
   <template>
     <fieldset>
@@ -15,6 +20,8 @@ export default class ConditionalError extends Component {
       {{#if this.visible}}
         {{ (error) }}
       {{/if}}
+
+      <br><br>Expected Leaves of Template-Stack:<pre>{{expected @name}}</pre>
     </fieldset>
   </template>
 
