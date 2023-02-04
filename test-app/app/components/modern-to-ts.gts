@@ -1,3 +1,7 @@
+import ConditionalError from './conditional-error';
+
 <template>
-  GTS
+  <ConditionalError @label="Modern Template-Only (gts)">
+    Yielded
+  </ConditionalError>
 </template>
